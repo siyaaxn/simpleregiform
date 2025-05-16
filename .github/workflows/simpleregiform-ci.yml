@@ -1,0 +1,32 @@
+name: CI for simpleregiform
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v5
+      with:
+        node-version: '18.x' # Or a suitable LTS version
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Lint with ESLint
+      run: |
+        npm install -g eslint
+        eslint .
+
+    # - name: Run tests
+    #   run: npm test
